@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import AddProduct from './addProduct';
 import DeleteProduct from './deleteProduct';
 import UpdateProduct from './updateProduct';
+import { revalidateTag } from 'next/cache';
 const prisma = new PrismaClient();
 
 const getProducts = async () => {
@@ -14,6 +15,7 @@ const getProducts = async () => {
       brand: true,
     },
   });
+  revalidateTag('product');
   return res;
 };
 
@@ -26,17 +28,17 @@ const product = async () => {
   const [products, brands] = await Promise.all([getProducts(), getBrands()]);
   return (
     <div>
-      <div className='mb-2'>
+      <div className="mb-2">
         <AddProduct brands={brands} />
       </div>
-      <table className='table w-full'>
+      <table className="table w-full">
         <thead>
           <tr>
             <th>#</th>
             <th>Product Name</th>
             <th>Price</th>
             <th>Brand</th>
-            <th className='text-center'>Action</th>
+            <th className="text-center">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +48,7 @@ const product = async () => {
               <td>{product.title}</td>
               <td>{product.price}</td>
               <td>{product.brand.name}</td>
-              <td className='flex justify-center space-x-1'>
+              <td className="flex justify-center space-x-1">
                 <UpdateProduct brands={brands} product={product} />
                 <DeleteProduct product={product} />
               </td>

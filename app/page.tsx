@@ -1,7 +1,14 @@
+import Link from 'next/link';
+
 const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
+    <Link
+      className="bg-blue-300 px-5 py-3 rounded-md font-bold"
+      href="/products"
+    >
+      Product
+    </Link>
+  );
+};
 
-export default Home
+export default Home;
