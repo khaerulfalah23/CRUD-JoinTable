@@ -17,9 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="light">
       <body className={inter.className}>
-        <div className="flex justify-center items-center h-screen">
-          {children}
-        </div>
+        <div className="px-10 py-10">{children}</div>
       </body>
     </html>
   );
